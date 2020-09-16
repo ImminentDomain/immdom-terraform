@@ -85,7 +85,7 @@ data "aws_caller_identity" "current" {}
 # Billing Cloudwatch Alert
 ################################################################################
 module "billing_alert" {
-  source = "git@github.com:ahodges22/terraform-aws-cost-billing-alarm.git"
+  source = "github.com:ahodges22/terraform-aws-cost-billing-alarm"
 
   create                    = var.enable_billing_alert
   aws_env                   = var.name
