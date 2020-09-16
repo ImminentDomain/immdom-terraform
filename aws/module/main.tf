@@ -58,7 +58,7 @@ locals {
     "replicas", 2,
     "db_disk_size", 5,
     "deploy_eks", true,
-    "cicd_user", true,
+    "cicd_user", false,
     "app_role", true
   )
 
