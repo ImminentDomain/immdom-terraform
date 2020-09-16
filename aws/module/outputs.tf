@@ -1,7 +1,7 @@
 output "ecr_repos" {
   value = {
     for service_name in keys(local.services) :
-    service_name => aws_ecr_repository.app[service_name].repository_url
+    service_name => module.ecr_repository[service_name].repository_url
   }
 }
 

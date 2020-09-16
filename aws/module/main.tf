@@ -56,7 +56,10 @@ locals {
     "ecr_scan_images", false,
     "container_port", 5000,
     "replicas", 2,
-    "db_disk_size", 5
+    "db_disk_size", 5,
+    "deploy_eks", true,
+    "cicd_user", true,
+    "app_role", true
   )
 
   service_values = [
@@ -136,6 +139,7 @@ module "vpc" {
 # Sets up the EKS cluster, using version 1.17 and a single worker group with autoscaling
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
+  create_eks      = var.eks_cluster
   cluster_name    = var.name
   cluster_version = "1.17"
   subnets         = var.private_networking ? module.vpc.private_subnets : module.vpc.public_subnets
@@ -143,10 +147,10 @@ module "eks" {
   enable_irsa     = true
 
   map_users = [
-    for user in keys(aws_iam_user.cicd) :
+    for user in keys(module.cicd_user) :
     {
-      userarn  = aws_iam_user.cicd[user].arn
-      username = aws_iam_user.cicd[user].name
+      userarn  = module.cicd_user[user].arn
+      username = module.cicd_user[user].name
       groups   = ["system:masters"]
     }
   ]

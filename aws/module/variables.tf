@@ -69,3 +69,9 @@ variable "services" {
   type        = map
   default     = {}
 }
+
+variable "eks_cluster" {
+  description = "Deploy an EKS cluster."
+  type        = bool
+  default     = true
+}

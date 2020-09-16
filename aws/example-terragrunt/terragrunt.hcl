@@ -38,11 +38,16 @@ inputs = {
   # Enter the desired environment name here.
   name = "immdom-example"
 
+  # Deploy an EKS cluster or not
+  eks_cluster = true
+
   # Enter service definitions here.
   services = {
-    "flask-app" = {
+    "example-app" = {
+      # These all default to true, just shown here to highlight.
       service_db = true
       s3_bucket = true
+      deploy_eks = true
     }
   }
 }
